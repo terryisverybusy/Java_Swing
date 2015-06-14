@@ -12,7 +12,8 @@ Come up with functional requirements and prepare a design document with story bo
 Also decide on the scope of the project (features to be supported)
 
 # Documents
-for documents modification, use links below. Every version will be submitted to docs folder.
+for documents modification, use links below. Every version should be submitted to docs folder.
+*For google doc files, use Suggesting Mode for sake of easy peer review.*
 * [Requirements Analysis](http://bit.ly/1GEDB3u)
 * [UML-Class Diagram](http://bit.ly/1GEDtAZ)
 
