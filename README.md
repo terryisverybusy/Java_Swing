@@ -17,6 +17,6 @@ for documents modification, use links below. Every version should be submitted t
 * [Requirements Analysis](http://bit.ly/1GEDB3u)
 * [UML-Class Diagram](http://bit.ly/1GEDtAZ)
 
-
-#### References
+# References
 * [How is car insurance calculated?](http://bit.ly/1GCLynH)
+* [Vehicle Insurance Policy System through UML](http://bit.ly/1ISGVbL)
