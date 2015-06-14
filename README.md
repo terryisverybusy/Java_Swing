@@ -15,3 +15,7 @@ Also decide on the scope of the project (features to be supported)
 for documents modification, use links below. Every version will be submitted to docs folder.
 * [Requirements Analysis](http://bit.ly/1GEDB3u)
 * [UML-Class Diagram](http://bit.ly/1GEDtAZ)
+
+
+#### References
+* [How is car insurance calculated?](http://bit.ly/1GCLynH)
