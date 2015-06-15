@@ -32,25 +32,26 @@ public class ClaimImpl implements ClaimDao {
 
     @Override
     public boolean updateClaim(Claim u) {
-        return false;
+        return deleteClaim(u) & addClaim(u);
     }
 
     @Override
     public boolean deleteClaim(Claim u) {
-        return false;
+        String id = "c" + String.valueOf(u.getId());
+        return FileOperations.deleteRecordFromFile(claimFile, id);
     }
 
     @Override
     public List<Claim> searchClaimByClaimTitle(String title) {
         List<Claim> lc = new ArrayList<>();
-        for(String s:FileOperations.readRecordsFromFile(claimFile,title))
-            lc.add(new Claim(s));
+        FileOperations.loadRecordsFromFile(claimFile, title).forEach(s -> lc.add(new Claim(s)));
         return lc;
     }
 
     @Override
     public Claim getClaimByClaimId(int id) {
-        return null;
+        String cid = "c" + String.valueOf(id);
+        return new Claim(FileOperations.loadRecordsFromFile(claimFile, cid).get(0));
     }
 
 }

@@ -49,7 +49,7 @@ public class Claim {
         String d = Utils.delim;
         return d + "c" + String.valueOf(id) + d + "u" + String.valueOf(userId)
                 + d + title + d + createTime.toString() + d +
-                solvedTime.toString() + d + state.toString() + d + content + "\n";
+                solvedTime.toString() + d + state.toString() + d + content;
     }
 
     public int getId() {
