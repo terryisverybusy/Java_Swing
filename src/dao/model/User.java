@@ -1,5 +1,7 @@
 package dao.model;
 
+import utils.Utils;
+
 import java.time.LocalDate;
 
 /**
@@ -17,11 +19,12 @@ public class User {
     private String address;
 
     public String toString() {
-        return String.valueOf(id) + "||" + userName + "||" +
-                password + "||" + email + "||" +
-                firstName+"||"+lastName+"||"+
-                birthday.toString()+"||"+occupation+"||"+
-                address+"||";
+        String d = Utils.delim;
+        return String.valueOf(id) + d + userName + d +
+                password + d + email + d +
+                firstName + d + lastName + d +
+                birthday.toString() + d + occupation + d +
+                address + d + "\n";
     }
 
     public int getId() {

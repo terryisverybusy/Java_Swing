@@ -1,17 +1,21 @@
 package dao.model;
 
+import utils.Utils;
+
 /**
  * Created by Rico on 6/13/15.
  */
 public class Policy {
 
-    public enum Type{
+    public enum Type {
         CI, //Comprehensive insurance
         TPO,    //Third-party only
         TPFT,   //Third-party fire and theft
     }
-    public enum Duration{HALF,ONE}
-    public enum Usage{ LOW, MID, HEAVY}
+
+    public enum Duration {HALF, ONE}
+
+    public enum Usage {LOW, MID, HEAVY}
 
     private int id;
     private int vehicleId;
@@ -21,11 +25,12 @@ public class Policy {
     private Duration duration;
     private Usage usage;
 
-    public String toString(){
-        return String.valueOf(id)+"||"+String.valueOf(vehicleId)+"||"+
-                String.valueOf(userId)+"||"+String.valueOf(price)+"||"+
-                type.toString()+"||"+duration.toString()+"||"+
-                usage.toString()+"||";
+    public String toString() {
+        String d = Utils.delim;
+        return String.valueOf(id) + d + String.valueOf(vehicleId) + d +
+                String.valueOf(userId) + d + String.valueOf(price) + d +
+                type.toString() + d + duration.toString() + d +
+                usage.toString() + d + "\n";
     }
 
     public int getId() {

@@ -1,5 +1,7 @@
 package dao.model;
 
+import utils.Utils;
+
 /**
  * Created by Rico on 6/13/15.
  */
@@ -13,9 +15,10 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.valueOf(id) + "||" + brand + "||" +
-                String.valueOf(year) + "||" + model + "||" +
-                String.valueOf(estimateValue) + "||" + String.valueOf(miles) + "||";
+        String d = Utils.delim;
+        return String.valueOf(id) + d + brand + d +
+                String.valueOf(year) + d + model + d +
+                String.valueOf(estimateValue) + d + String.valueOf(miles) + d + "\n";
     }
 
     public int getId() {
