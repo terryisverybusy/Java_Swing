@@ -27,10 +27,10 @@ public class Policy {
 
     public String toString() {
         String d = Utils.delim;
-        return String.valueOf(id) + d + String.valueOf(vehicleId) + d +
-                String.valueOf(userId) + d + String.valueOf(price) + d +
+        return d + "p" + String.valueOf(id) + d + "v" + String.valueOf(vehicleId) + d +
+                "u" + String.valueOf(userId) + d + String.valueOf(price) + d +
                 type.toString() + d + duration.toString() + d +
-                usage.toString() + d + "\n";
+                usage.toString() + "\n";
     }
 
     public int getId() {

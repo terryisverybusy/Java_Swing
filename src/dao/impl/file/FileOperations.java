@@ -8,6 +8,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.APPEND;
 
@@ -37,9 +38,26 @@ class FileOperations {
         return status;
     }
 
-    static List<String> loadRecordsFromFile(Path file, String searchCondition) {
+    static List<String> readRecordsFromFile(Path file, String searchCondition) {
         List<String> ls = new ArrayList<>();
+        try{
+            Scanner s = new Scanner(file);
+            while(s.hasNextLine()){
+                String str = s.nextLine();
+                if(str.contains(searchCondition)) ls.add(str);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("Fail to seach"+file.toAbsolutePath().toString());
+        }
         return ls;
+    }
+
+    static boolean deleteRecordFromFile(Path file, int id){
+        boolean status = false;
+
+        
+        return status;
     }
 
     static List<String> loadAttributeFromFile(Path file, String attr) {

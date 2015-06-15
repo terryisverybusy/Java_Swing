@@ -20,11 +20,11 @@ public class User {
 
     public String toString() {
         String d = Utils.delim;
-        return String.valueOf(id) + d + userName + d +
+        return d+"u"+String.valueOf(id) + d + userName + d +
                 password + d + email + d +
                 firstName + d + lastName + d +
                 birthday.toString() + d + occupation + d +
-                address + d + "\n";
+                address + "\n";
     }
 
     public int getId() {

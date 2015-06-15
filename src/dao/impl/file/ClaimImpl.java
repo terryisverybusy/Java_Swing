@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +42,10 @@ public class ClaimImpl implements ClaimDao {
 
     @Override
     public List<Claim> searchClaimByClaimTitle(String title) {
-        return null;
+        List<Claim> lc = new ArrayList<>();
+        for(String s:FileOperations.readRecordsFromFile(claimFile,title))
+            lc.add(new Claim(s));
+        return lc;
     }
 
     @Override

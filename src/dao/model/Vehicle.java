@@ -16,9 +16,9 @@ public class Vehicle {
     @Override
     public String toString() {
         String d = Utils.delim;
-        return String.valueOf(id) + d + brand + d +
+        return d + "v" + String.valueOf(id) + d + brand + d +
                 String.valueOf(year) + d + model + d +
-                String.valueOf(estimateValue) + d + String.valueOf(miles) + d + "\n";
+                String.valueOf(estimateValue) + d + String.valueOf(miles) + "\n";
     }
 
     public int getId() {

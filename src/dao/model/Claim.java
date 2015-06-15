@@ -15,9 +15,10 @@ public class Claim {
     private String title;
 
     LocalDateTime createTime;
-    LocalDateTime solvedTime = LocalDateTime.of(2000,1,1,0,0,0,0);
+    LocalDateTime solvedTime = LocalDateTime.of(2000, 1, 1, 0, 0, 0, 0);
     private State state = State.OPEN;
     private String content;
+
 
     public Claim(int id, int userId, String title, LocalDateTime createTime, String content) {
         this.id = id;
@@ -27,11 +28,28 @@ public class Claim {
         this.content = content;
     }
 
+    public Claim(int id, int userId, String title, LocalDateTime createTime, LocalDateTime solvedTime, State state, String content) {
+        this(id, userId, title, createTime, content);
+        this.solvedTime = solvedTime;
+        this.state = state;
+    }
+
+    public Claim(String s) {
+        String[] ss = s.split(Utils.regex);
+        this.id = Integer.parseInt(ss[1].substring(1));
+        this.userId = Integer.parseInt(ss[2].substring(1));
+        this.title = ss[3];
+        this.createTime = LocalDateTime.parse(ss[4]);
+        this.solvedTime = LocalDateTime.parse(ss[5]);
+        this.state = State.valueOf(ss[6]);
+        this.content = ss[7];
+    }
+
     public String toString() {
         String d = Utils.delim;
-        return String.valueOf(id) + d + String.valueOf(userId)
+        return d + "c" + String.valueOf(id) + d + "u" + String.valueOf(userId)
                 + d + title + d + createTime.toString() + d +
-                solvedTime.toString() + d + state.toString() + d + content + d+"\n";
+                solvedTime.toString() + d + state.toString() + d + content + "\n";
     }
 
     public int getId() {
