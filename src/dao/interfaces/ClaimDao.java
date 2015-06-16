@@ -4,13 +4,11 @@ import dao.model.Claim;
 
 import java.util.List;
 
-/**
- * Created by Rico on 6/13/15.
- */
 public interface ClaimDao {
-    boolean addClaim(Claim u);
-    boolean updateClaim(Claim u);
-    boolean deleteClaim(Claim u);
-    List<Claim> searchClaimByClaimTitle(String title);
-    Claim getClaimByClaimId(int id);
+    boolean addClaim(Claim c);
+    boolean updateClaim(Claim c);
+    boolean deleteClaim(Claim c);
+    List<Claim> getClaimByTitle(String t);
+    List<Claim> getClaimByUserId(long uid);
+    Claim getClaimByClaimId(long cid);
 }
