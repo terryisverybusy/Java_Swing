@@ -2,3 +2,5 @@
 data/*
 bin/*
 .classpath
+.project
+.settings*
