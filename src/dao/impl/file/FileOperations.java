@@ -13,12 +13,6 @@ import java.util.Scanner;
 
 import static java.nio.file.StandardOpenOption.APPEND;
 
-/**
- * Created by Rico on 6/13/15.
- */
-/*
-class with default scope, with in
- */
 class FileOperations {
 
     static boolean saveRecordToFile(Path file, String record) {

@@ -10,34 +10,33 @@ import java.time.LocalDateTime;
 public class Claim {
     public enum State {OPEN, CLOSED, HANDELING}
 
-    private int id;
-    private int userId;
+    private long id = System.currentTimeMillis();
+    private long userId;
     private String title;
-
-    LocalDateTime createTime;
+    LocalDateTime createTime = LocalDateTime.now();
     LocalDateTime solvedTime = LocalDateTime.of(2000, 1, 1, 0, 0, 0, 0);
     private State state = State.OPEN;
     private String content;
 
 
-    public Claim(int id, int userId, String title, LocalDateTime createTime, String content) {
-        this.id = id;
+    public Claim(long userId, String title,  String content) {
         this.userId = userId;
         this.title = title;
-        this.createTime = createTime;
         this.content = content;
     }
 
-    public Claim(int id, int userId, String title, LocalDateTime createTime, LocalDateTime solvedTime, State state, String content) {
-        this(id, userId, title, createTime, content);
+    public Claim(long id, long userId, String title, LocalDateTime createTime, LocalDateTime solvedTime, State state, String content) {
+        this(userId, title, content);
+        this.id = id;
+        this.createTime = createTime;
         this.solvedTime = solvedTime;
         this.state = state;
     }
 
     public Claim(String s) {
         String[] ss = s.split(Utils.regex);
-        this.id = Integer.parseInt(ss[1].substring(1));
-        this.userId = Integer.parseInt(ss[2].substring(1));
+        this.id = Long.parseLong(ss[1].substring(1));
+        this.userId = Long.parseLong(ss[2].substring(1));
         this.title = ss[3];
         this.createTime = LocalDateTime.parse(ss[4]);
         this.solvedTime = LocalDateTime.parse(ss[5]);
@@ -52,19 +51,16 @@ public class Claim {
                 solvedTime.toString() + d + state.toString() + d + content;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

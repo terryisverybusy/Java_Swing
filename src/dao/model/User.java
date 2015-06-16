@@ -4,44 +4,64 @@ import utils.Utils;
 
 import java.time.LocalDate;
 
-/**
- * Created by Rico on 6/13/15.
- */
 public class User {
-    private int id;
+    private long id;
     private String userName;
     private String password;
     private String email;
-    private String firstName;
-    private String lastName;
-    private LocalDate birthday;
+    private String firstName = "John";
+    private String lastName = "Doe";
+    private LocalDate birthday = LocalDate.now();
     private String occupation;
     private String address;
 
+    public User(String userName, String password) {
+        id = System.currentTimeMillis();
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public User(int id, String userName, String password, String email,
+                String firstName, String lastName, LocalDate birthday, String occupation, String address) {
+        this(userName, password);
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.occupation = occupation;
+        this.address = address;
+    }
+
+    public User(String s) {
+        String[] ss = s.split(Utils.regex);
+        id = Long.parseLong(ss[1].substring(1));
+        userName = ss[2];
+        password = ss[3];
+        email = ss[4];
+        firstName = ss[5];
+        lastName = ss[6];
+        birthday = LocalDate.parse(ss[7]);
+        occupation = ss[8];
+        address = ss[9];
+    }
+
     public String toString() {
         String d = Utils.delim;
-        return d+"u"+String.valueOf(id) + d + userName + d +
+        return d + "u" + id + d + userName + d +
                 password + d + email + d +
                 firstName + d + lastName + d +
-                birthday.toString() + d + occupation + d +
-                address + "\n";
+                birthday.toString() + d + occupation + d + address;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getPassword() {
         return password;
