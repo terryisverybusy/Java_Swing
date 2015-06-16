@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,22 +32,36 @@ public class ClaimImpl implements ClaimDao {
 
     @Override
     public boolean updateClaim(Claim u) {
-        return false;
+        return deleteClaim(u) & addClaim(u);
     }
 
     @Override
-    public boolean deleteClaim(Claim u) {
-        return false;
+    public boolean deleteClaim(Claim c) {
+        String cid = "c" + String.valueOf(c.getId());
+        return FileOperations.deleteRecordFromFile(claimFile, cid);
     }
 
     @Override
-    public List<Claim> searchClaimByClaimTitle(String title) {
-        return null;
+    public List<Claim> getClaimByTitle(String title) {
+        List<Claim> lc = new ArrayList<>();
+        FileOperations.loadRecordsFromFile(claimFile, title).forEach(s -> lc.add(new Claim(s)));
+        return lc;
     }
 
     @Override
-    public Claim getClaimByClaimId(int id) {
-        return null;
+    public List<Claim> getClaimByUserId(long uid) {
+        List<Claim> lc = new ArrayList<>();
+        String str = "u"+String.valueOf(uid);
+        FileOperations.loadRecordsFromFile(claimFile,str).forEach(s -> lc.add(new Claim(s)));
+        return lc;
     }
+
+    @Override
+    public Claim getClaimByClaimId(long cid) {
+        String str = "c"+String.valueOf(cid);
+        Claim c = new Claim(FileOperations.loadRecordsFromFile(claimFile,str).get(0));
+        return c;
+    }
+
 
 }

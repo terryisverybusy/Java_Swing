@@ -6,27 +6,45 @@ import utils.Utils;
  * Created by Rico on 6/13/15.
  */
 public class Vehicle {
-    private int id;
+    private long id;
     private String brand;
     private int year;
     private String model;
-    private int estimateValue;
     private int miles;
+    private double basePrice;
+
+    public Vehicle(String brand, int year, String model, int miles, double basePrice) {
+        id = System.currentTimeMillis();
+        this.brand = brand;
+        this.year = year;
+        this.model = model;
+        this.miles = miles;
+        this.basePrice = basePrice;
+    }
+    public Vehicle(long id , String brand,int year,String model,int miles,double basePrice){
+        this(brand,year,model,miles,basePrice);
+        this.id = id;
+    }
+    public Vehicle(String s){
+        String[] ss = s.split(Utils.regex);
+        id = Long.parseLong(ss[1].substring(1));
+        brand = ss[2];
+        year = Integer.parseInt(ss[3]);
+        model = ss[4];
+        miles = Integer.parseInt(ss[5]);
+        basePrice = Double.parseDouble(ss[6]);
+    }
 
     @Override
     public String toString() {
         String d = Utils.delim;
-        return String.valueOf(id) + d + brand + d +
-                String.valueOf(year) + d + model + d +
-                String.valueOf(estimateValue) + d + String.valueOf(miles) + d + "\n";
+        return d + "v" + id + d + brand + d +
+                year + d + model + d + miles + d + basePrice;
     }
 
-    public int getId() {
+
+    public long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrand() {
@@ -53,19 +71,19 @@ public class Vehicle {
         this.model = model;
     }
 
-    public int getEstimateValue() {
-        return estimateValue;
-    }
-
-    public void setEstimateValue(int estimateValue) {
-        this.estimateValue = estimateValue;
-    }
-
     public int getMiles() {
         return miles;
     }
 
     public void setMiles(int miles) {
         this.miles = miles;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
     }
 }
