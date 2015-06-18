@@ -7,20 +7,20 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 
 class mainView extends JFrame implements ActionListener {
-	//component for the main view
+	// component for the main view
 	public static JTabbedPane tabbedPane;
 	public JPanel welcomePanel;
 	public JPanel registerPanel;
 	public JPanel infoPanel;
 	public JPanel claimPanel;
 
-	//component for the welcome page
+	// component for the welcome page
 	public JButton welcomeLoginButton;
 	public JButton welcomeRegisterButton;
 	public JTextField welcomeUserField;
 	public JPasswordField welcomePasswordField;
 
-	//component for the register page
+	// component for the register page
 	public JButton registerSubmitButton;
 	public JButton registerSignOutButton;
 	public JTextField registerEmailText;
@@ -35,10 +35,11 @@ class mainView extends JFrame implements ActionListener {
 	public JTextField registerModelText;
 	public JTextField registerMilesText;
 	public JTextField registerBasePriceText;
-	public JTextField registerTypeText;
-	public JTextField registerDurationText;
+	public JComboBox typeList;
+	public JComboBox durationList;
+	public JComboBox usageList;
 
-	//component for the personal information page
+	// component for the personal information page
 	public JButton infoSubmitButton;
 	public JButton infoSignOutButton;
 	public JTextField infoEmailText;
@@ -56,7 +57,7 @@ class mainView extends JFrame implements ActionListener {
 	public JTextField infoTypeText;
 	public JTextField infoDurationText;
 
-	//component for the claim report
+	// component for the claim report
 	public JTextField claimTitleText;
 	public JTextField claimContentText;
 	public JButton claimSignOutButton;
@@ -76,24 +77,24 @@ class mainView extends JFrame implements ActionListener {
 		topPanel.setLayout(new BorderLayout());
 		getContentPane().add(topPanel);
 
-		//Create all the tab pages
+		// Create all the tab pages
 		createWelcome();
 		createRegister();
 		createInfo();
 		createClaim();
 
-		//Create a tabbed pane
+		// Create a tabbed pane
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Welcome Page", welcomePanel);
 		tabbedPane.addTab("Register Page", registerPanel);
 		tabbedPane.addTab("Information page", infoPanel);
 		tabbedPane.addTab("Claim page", claimPanel);
-        //add to the topPanel
+		// add to the topPanel
 		topPanel.add(tabbedPane, BorderLayout.CENTER);
 
 	}
 
-	//create the welcome page
+	// create the welcome page
 	public void createWelcome() {
 		welcomePanel = new JPanel();
 		welcomePanel.setLayout(null);
@@ -125,7 +126,7 @@ class mainView extends JFrame implements ActionListener {
 		welcomeRegisterButton.addActionListener(this);
 	}
 
-	//create the register page
+	// create the register page
 	public void createRegister() {
 		registerPanel = new JPanel();
 		registerPanel.setLayout(null);
@@ -231,17 +232,28 @@ class mainView extends JFrame implements ActionListener {
 		typeLabel.setBounds(10, 370, 80, 25);
 		registerPanel.add(typeLabel);
 
-		registerTypeText = new JTextField(20);
-		registerTypeText.setBounds(100, 370, 160, 25);
-		registerPanel.add(registerTypeText);
+		String[] typeListString = new String[] { "CI", "TPO", "TPFT" };
+		typeList = new JComboBox<String>(typeListString);
+		typeList.setBounds(100, 370, 160, 25);
+		registerPanel.add(typeList);
 
 		JLabel durationLabel = new JLabel("duration");
 		durationLabel.setBounds(10, 400, 80, 25);
 		registerPanel.add(durationLabel);
 
-		registerDurationText = new JTextField(20);
-		registerDurationText.setBounds(100, 400, 160, 25);
-		registerPanel.add(registerDurationText);
+		String[] durationListString = new String[] { "HALF", "ONE" };
+		durationList = new JComboBox<String>(durationListString);
+		durationList.setBounds(100, 400, 160, 25);
+		registerPanel.add(durationList);
+
+		JLabel usageLabel = new JLabel("usage");
+		usageLabel.setBounds(10, 430, 80, 25);
+		registerPanel.add(usageLabel);
+
+		String[] usageListString = new String[] { "LOW", "MID", "HEAVY" };
+		usageList = new JComboBox<String>(usageListString);
+		usageList.setBounds(100, 430, 160, 25);
+		registerPanel.add(usageList);
 
 		registerSignOutButton = new JButton("Sign Out");
 		registerSignOutButton.setBounds(480, 10, 80, 25);
@@ -249,12 +261,12 @@ class mainView extends JFrame implements ActionListener {
 		registerPanel.add(registerSignOutButton);
 
 		registerSubmitButton = new JButton("Submit");
-		registerSubmitButton.setBounds(100, 430, 80, 25);
+		registerSubmitButton.setBounds(100, 460, 80, 25);
 		registerSubmitButton.addActionListener(this);
 		registerPanel.add(registerSubmitButton);
 	}
 
-	//create the info page
+	// create the info page
 	public void createInfo() {
 
 		infoPanel = new JPanel();
@@ -384,7 +396,7 @@ class mainView extends JFrame implements ActionListener {
 		infoPanel.add(infoSubmitButton);
 	}
 
-	//create the claim report page
+	// create the claim report page
 	public void createClaim() {
 
 		claimPanel = new JPanel();
@@ -417,7 +429,7 @@ class mainView extends JFrame implements ActionListener {
 		claimPanel.add(claimSubmitButton);
 	}
 
-	//Main method to get things started
+	// Main method to get things started
 	public static void main(String args[]) {
 		// Create an instance of the test application
 		mainView mainFrame = new mainView();
@@ -433,7 +445,7 @@ class mainView extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == welcomeRegisterButton) {
 			tabbedPane.setSelectedIndex(1);
-			//Example to get the value from the textField
+			// Example to get the value from the textField
 			String temp = welcomeUserField.getText();
 			System.out.println(temp);
 		}
@@ -442,6 +454,9 @@ class mainView extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == registerSubmitButton) {
 			tabbedPane.setSelectedIndex(2);
+			// example to get the value of the selected item
+			String selected = (String) typeList.getSelectedItem();
+			System.out.println("You seleted : " + selected);
 		}
 		if (e.getSource() == infoSignOutButton) {
 			tabbedPane.setSelectedIndex(0);
