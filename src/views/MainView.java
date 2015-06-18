@@ -54,8 +54,10 @@ public class MainView extends JFrame implements ActionListener {
     public JTextField registerModelText;
     public JTextField registerMilesText;
     public JTextField registerBasePriceText;
-    public JTextField registerTypeText;
-    public JTextField registerDurationText;
+    public JComboBox typeList;
+    public JComboBox durationList;
+    public JComboBox usageList;
+
 
     //component for the personal information page
     public JButton infoSubmitButton;
@@ -251,17 +253,30 @@ public class MainView extends JFrame implements ActionListener {
         typeLabel.setBounds(10, 370, 80, 25);
         registerPanel.add(typeLabel);
 
-        registerTypeText = new JTextField(20);
-        registerTypeText.setBounds(100, 370, 160, 25);
-        registerPanel.add(registerTypeText);
+        String[] typeListString = new String[] { "CI", "TPO", "TPFT" };
+        typeList = new JComboBox<String>(typeListString);
+        typeList.setBounds(100, 370, 160, 25);
+        registerPanel.add(typeList);
+
 
         JLabel durationLabel = new JLabel("duration");
         durationLabel.setBounds(10, 400, 80, 25);
         registerPanel.add(durationLabel);
 
-        registerDurationText = new JTextField(20);
-        registerDurationText.setBounds(100, 400, 160, 25);
-        registerPanel.add(registerDurationText);
+        String[] durationListString = new String[] { "HALF", "ONE" };
+        durationList = new JComboBox<String>(durationListString);
+        durationList.setBounds(100, 400, 160, 25);
+        registerPanel.add(durationList);
+
+        JLabel usageLabel = new JLabel("usage");
+        usageLabel.setBounds(10, 430, 80, 25);
+        registerPanel.add(usageLabel);
+
+        String[] usageListString = new String[] { "LOW", "MID", "HEAVY" };
+        usageList = new JComboBox<String>(usageListString);
+        usageList.setBounds(100, 430, 160, 25);
+        registerPanel.add(usageList);
+
 
         registerSignOutButton = new JButton("Sign Out");
         registerSignOutButton.setBounds(480, 10, 80, 25);
@@ -482,9 +497,12 @@ public class MainView extends JFrame implements ActionListener {
             String title = claimTitleText.getText();
             String content = claimContentText.getText();
             if (mc.getClaimController().addClaim(uid, title, content)) {
-                claimTitleText.setText("");
-                claimContentText.setText("");
+
             }
         }
+    }
+    private void resetClaimPanel(){
+        claimTitleText.setText("");
+        claimContentText.setText("");
     }
 }
