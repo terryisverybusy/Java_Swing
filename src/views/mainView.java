@@ -24,6 +24,8 @@ class mainView extends JFrame implements ActionListener {
 	public JButton registerSubmitButton;
 	public JButton registerSignOutButton;
 	public JTextField registerEmailText;
+	public JTextField registerUserText;
+	public JPasswordField registerPasswordText;
 	public JTextField registerFNameText;
 	public JTextField registerLNameText;
 	public JFormattedTextField registerBirthdayText;
@@ -38,6 +40,8 @@ class mainView extends JFrame implements ActionListener {
 	public JComboBox typeList;
 	public JComboBox durationList;
 	public JComboBox usageList;
+	public JButton registerSubmitButton2;
+	public JButton registerSubmitButton3;
 
 	// component for the personal information page
 	public JButton infoSubmitButton;
@@ -70,7 +74,7 @@ class mainView extends JFrame implements ActionListener {
 		// a look-and-feel.
 
 		setTitle("Insurance Application");
-		setSize(600, 600);
+		setSize(800, 800);
 		setBackground(Color.BLUE);
 
 		JPanel topPanel = new JPanel();
@@ -131,10 +135,22 @@ class mainView extends JFrame implements ActionListener {
 		registerPanel = new JPanel();
 		registerPanel.setLayout(null);
 
+		JLabel userLabel = new JLabel("Username");
+		userLabel.setBounds(300, 10, 80, 25);
+		registerPanel.add(userLabel);
+		
+		this.registerUserText = new JTextField(20);
+		this.registerUserText.setBounds(370, 10, 160, 25);
+		registerPanel.add(this.registerUserText);
+
 		JLabel emailLabel = new JLabel("Email");
 		emailLabel.setBounds(10, 10, 80, 25);
 		registerPanel.add(emailLabel);
-
+		
+		this.registerEmailText = new JTextField(20);
+		this.registerEmailText.setBounds(100, 10, 160, 25);
+		registerPanel.add(this.registerEmailText);
+	
 		this.registerEmailText = new JTextField(20);
 		this.registerEmailText.setBounds(100, 10, 160, 25);
 		registerPanel.add(this.registerEmailText);
@@ -146,6 +162,14 @@ class mainView extends JFrame implements ActionListener {
 		registerFNameText = new JTextField(20);
 		registerFNameText.setBounds(100, 40, 160, 25);
 		registerPanel.add(registerFNameText);
+		
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setBounds(300, 40, 80, 25);
+		registerPanel.add(passwordLabel);
+
+		registerPasswordText = new JPasswordField(20);
+		registerPasswordText.setBounds(370, 40, 160, 25);
+		registerPanel.add(registerPasswordText);
 
 		JLabel lNameLabel = new JLabel("last Name");
 		lNameLabel.setBounds(10, 70, 80, 25);
@@ -229,39 +253,39 @@ class mainView extends JFrame implements ActionListener {
 		registerPanel.add(registerBasePriceText);
 
 		JLabel typeLabel = new JLabel("type");
-		typeLabel.setBounds(10, 370, 80, 25);
+		typeLabel.setBounds(10, 450, 80, 25);
 		registerPanel.add(typeLabel);
 
 		String[] typeListString = new String[] { "CI", "TPO", "TPFT" };
 		typeList = new JComboBox<String>(typeListString);
-		typeList.setBounds(100, 370, 160, 25);
+		typeList.setBounds(100, 450, 160, 25);
 		registerPanel.add(typeList);
 
 		JLabel durationLabel = new JLabel("duration");
-		durationLabel.setBounds(10, 400, 80, 25);
+		durationLabel.setBounds(10, 480, 80, 25);
 		registerPanel.add(durationLabel);
 
 		String[] durationListString = new String[] { "HALF", "ONE" };
 		durationList = new JComboBox<String>(durationListString);
-		durationList.setBounds(100, 400, 160, 25);
+		durationList.setBounds(100, 480, 160, 25);
 		registerPanel.add(durationList);
 
 		JLabel usageLabel = new JLabel("usage");
-		usageLabel.setBounds(10, 430, 80, 25);
+		usageLabel.setBounds(10, 510, 80, 25);
 		registerPanel.add(usageLabel);
 
 		String[] usageListString = new String[] { "LOW", "MID", "HEAVY" };
 		usageList = new JComboBox<String>(usageListString);
-		usageList.setBounds(100, 430, 160, 25);
+		usageList.setBounds(100, 510, 160, 25);
 		registerPanel.add(usageList);
 
 		registerSignOutButton = new JButton("Sign Out");
-		registerSignOutButton.setBounds(480, 10, 80, 25);
+		registerSignOutButton.setBounds(700, 10, 80, 25);
 		registerSignOutButton.addActionListener(this);
 		registerPanel.add(registerSignOutButton);
 
 		registerSubmitButton = new JButton("Submit");
-		registerSubmitButton.setBounds(100, 460, 80, 25);
+		registerSubmitButton.setBounds(100, 540, 80, 25);
 		registerSubmitButton.addActionListener(this);
 		registerPanel.add(registerSubmitButton);
 	}
