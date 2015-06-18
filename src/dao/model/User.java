@@ -12,6 +12,7 @@ public class User {
     private String firstName = "John";
     private String lastName = "Doe";
     private LocalDate birthday = LocalDate.now();
+    private LocalDate licenseDate;
     private String occupation;
     private String address;
 
@@ -22,7 +23,7 @@ public class User {
     }
 
     public User(int id, String userName, String password, String email,
-                String firstName, String lastName, LocalDate birthday, String occupation, String address) {
+                String firstName, String lastName, LocalDate birthday, String occupation, String address,LocalDate licenseDate) {
         this(userName, password);
         this.id = id;
         this.email = email;
@@ -31,6 +32,7 @@ public class User {
         this.birthday = birthday;
         this.occupation = occupation;
         this.address = address;
+        this.licenseDate = licenseDate;
     }
 
     public User(String s) {
@@ -44,6 +46,15 @@ public class User {
         birthday = LocalDate.parse(ss[7]);
         occupation = ss[8];
         address = ss[9];
+        licenseDate = LocalDate.parse(ss[10]);
+    }
+
+    public LocalDate getLicenseDate() {
+        return licenseDate;
+    }
+
+    public void setLicenseDate(LocalDate licenseDate) {
+        this.licenseDate = licenseDate;
     }
 
     public String toString() {
@@ -51,7 +62,7 @@ public class User {
         return d + "u" + id + d + userName + d +
                 password + d + email + d +
                 firstName + d + lastName + d +
-                birthday.toString() + d + occupation + d + address;
+                birthday.toString() + d + occupation + d + address +d+ licenseDate.toString();
     }
 
     public long getId() {

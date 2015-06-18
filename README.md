@@ -16,6 +16,7 @@ for documents modification, use links below. Every version should be submitted t
 *For google doc files, use Suggesting Mode for sake of easy peer review.*
 * [Requirements Analysis](http://bit.ly/1GEDB3u)
 * [UML-Class Diagram](http://bit.ly/1GEDtAZ)
+* [Basic View](https://docs.google.com/drawings/d/1t6M2W9OtWmffbB5HTQW5kkkfKyV01F8mtJgSlCVgA3g/edit?usp=sharing)
 
 # References
 * [How is car insurance calculated?](http://bit.ly/1GCLynH)
