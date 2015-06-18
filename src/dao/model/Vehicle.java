@@ -7,25 +7,29 @@ import utils.Utils;
  */
 public class Vehicle {
     private long id;
+    private long uid;
     private String brand;
     private int year;
     private String model;
     private int miles;
     private double basePrice;
 
-    public Vehicle(String brand, int year, String model, int miles, double basePrice) {
+    public Vehicle(long uid, String brand, int year, String model, int miles, double basePrice) {
         id = System.currentTimeMillis();
+        this.uid = uid;
         this.brand = brand;
         this.year = year;
         this.model = model;
         this.miles = miles;
         this.basePrice = basePrice;
     }
-    public Vehicle(long id , String brand,int year,String model,int miles,double basePrice){
-        this(brand,year,model,miles,basePrice);
+
+    public Vehicle(long id, long uid, String brand, int year, String model, int miles, double basePrice) {
+        this(uid, brand, year, model, miles, basePrice);
         this.id = id;
     }
-    public Vehicle(String s){
+
+    public Vehicle(String s) {
         String[] ss = s.split(Utils.regex);
         id = Long.parseLong(ss[1].substring(1));
         brand = ss[2];
@@ -33,13 +37,14 @@ public class Vehicle {
         model = ss[4];
         miles = Integer.parseInt(ss[5]);
         basePrice = Double.parseDouble(ss[6]);
+        uid = Long.parseLong(ss[7]);
     }
 
     @Override
     public String toString() {
         String d = Utils.delim;
         return d + "v" + id + d + brand + d +
-                year + d + model + d + miles + d + basePrice;
+                year + d + model + d + miles + d + basePrice + d + uid;
     }
 
 
