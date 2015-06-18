@@ -26,7 +26,8 @@ public interface RegisterController {
 //			MessageDigest pw = MessageDigest.getInstance("SHA-256");
 //		}
 //	}
-    boolean addUser(User u);
+    boolean addUser(String userName,String password, String email,String firstName,String lastName,String birthday,
+                    String occupation,String address, String licenseDate);
     boolean addVehicle(Vehicle v);
     boolean addPolicy(Policy p);
 

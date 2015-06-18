@@ -16,16 +16,11 @@ public class User {
     private String occupation;
     private String address;
 
-    public User(String userName, String password) {
+    public User(String userName, String password,String email,String firstName, String lastName, LocalDate birthday,
+                String occupation,String address, LocalDate licenseDate) {
         id = System.currentTimeMillis();
         this.userName = userName;
         this.password = password;
-    }
-
-    public User(int id, String userName, String password, String email,
-                String firstName, String lastName, LocalDate birthday, String occupation, String address,LocalDate licenseDate) {
-        this(userName, password);
-        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +28,12 @@ public class User {
         this.occupation = occupation;
         this.address = address;
         this.licenseDate = licenseDate;
+    }
+
+    public User(int id, String userName, String password, String email,
+                String firstName, String lastName, LocalDate birthday, String occupation, String address,LocalDate licenseDate) {
+        this(userName, password,email,firstName,lastName,birthday,occupation,address,licenseDate);
+        this.id = id;
     }
 
     public User(String s) {
