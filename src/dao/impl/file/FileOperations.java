@@ -7,9 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.nio.file.StandardOpenOption.APPEND;
 
@@ -38,7 +36,11 @@ class FileOperations {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String str = s.nextLine();
-                if (str.contains(searchCondition)) ls.add(str);
+                String[] ss = str.split(Utils.regex);
+                Arrays.asList(ss).forEach(temp->{
+                    if (temp.equals(searchCondition))
+                        ls.add(str);
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();
