@@ -13,19 +13,14 @@ import java.nio.file.Paths;
  */
 public class MainController {
 
-    private static MainController mc;
-
-    public static MainController getInstance() {
-        return mc == null ? new MainController() : mc;
-    }
-
     private ClaimController cc;
     private WelcomeController wc;
     private RegisterController rc;
     private InfoController ic;
     private MainView mv;
 
-    private MainController() {
+    public MainController() {
+        init();
         wc = new WelcomeController();
         cc = new ClaimController();
     }
@@ -33,7 +28,7 @@ public class MainController {
     private void init() {
         Path path = Paths.get(Utils.CONFIG_PROPS.getProperty("data-store-path"));
         if (!Files.exists(path)) try {
-            Files.createDirectories(path);
+            Files.createDirectory(path);
         } catch (IOException e) {
             System.out.println("fail to create data store directory");
         }
@@ -43,9 +38,7 @@ public class MainController {
 
 
     public static void main(String[] args) {
-        MainController.getInstance().init();
-//        init();
-//        System.out.println(LocalDateTime.now());
+        MainController mc = new MainController();
     }
 
     public ClaimController getClaimController() {
