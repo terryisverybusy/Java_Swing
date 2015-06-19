@@ -1,11 +1,12 @@
 package controllers;
+
 import utils.Utils;
 import views.MainView;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 
 /**
  * Created by Rico on 6/17/15.
@@ -22,25 +23,28 @@ public class MainController {
     private WelcomeController wc;
     private RegisterController rc;
     private InfoController ic;
+    private MainView mv;
 
     private MainController() {
         wc = new WelcomeController();
         cc = new ClaimController();
     }
 
-    private static void init() {
+    private void init() {
         Path path = Paths.get(Utils.CONFIG_PROPS.getProperty("data-store-path"));
         if (!Files.exists(path)) try {
             Files.createDirectories(path);
         } catch (IOException e) {
             System.out.println("fail to create data store directory");
         }
-        MainView.getInstance().setVisible(true);
+        mv = MainView.getInstance();
+        mv.setVisible(true);
     }
 
 
     public static void main(String[] args) {
-        init();
+        MainController.getInstance().init();
+//        init();
 //        System.out.println(LocalDateTime.now());
     }
 
