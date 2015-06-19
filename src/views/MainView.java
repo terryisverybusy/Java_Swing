@@ -496,9 +496,8 @@ public class MainView extends JFrame implements ActionListener {
             long uid = 1L;
             String title = claimTitleText.getText();
             String content = claimContentText.getText();
-            if (mc.getClaimController().addClaim(uid, title, content)) {
-
-            }
+            if (mc.getClaimController().addClaim(uid, title, content))
+                resetClaimPanel();
         }
     }
     private void resetClaimPanel(){

@@ -1,9 +1,12 @@
 package utils;
 
+import sun.plugin2.message.Message;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
 import java.util.Properties;
 
 public class Utils {

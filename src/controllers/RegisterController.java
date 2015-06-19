@@ -15,7 +15,6 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by Rico on 6/17/15.
@@ -26,37 +25,38 @@ public class RegisterController {
     UserDao ud = new UserImpl();
     VehicleDao vd = new VehicleImpl();
     PolicyDao pd = new PolicyImpl();
-    User user;
-    private List<Vehicle> vehicles;
-    private List<Policy>  policies;
 
 
-
-
-    public boolean addUser(String userName, String password, String email, String firstName, String lastName, String birthday, String occupation, String address, String licenseDate) {
-        boolean result = false;
+    public User addUser(String userName, String password, String email, String firstName, String lastName, String birthday, String occupation, String address, String licenseDate) {
+        User u = null;
+        if (!(ud.getUserByUserName(userName) == null)) return u;
         LocalDate birth = LocalDate.parse(birthday);
-        if (!validateUserInfo(userName, birth, email, occupation)) return result;
+        if (!validateUserInfo(userName, birth, email, occupation)) return u;
         else {
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
                 String pwd = new String(md.digest(password.getBytes()), Charset.defaultCharset());
-                user = new User(userName,pwd,email,firstName,lastName,birth,occupation,address,LocalDate.parse(licenseDate));
-                ud.addUser(user);
-                result = true;
-            } catch (NoSuchAlgorithmException e) {e.printStackTrace();}
+                u = new User(userName, pwd, email, firstName, lastName, birth, occupation, address, LocalDate.parse(licenseDate));
+                ud.addUser(u);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
-        return result;
+        return u;
     }
 
 
-    public boolean addVehicle(String brand, int year, String model, int miles, double basePrice ) {
-        return false;
+    public Vehicle addVehicle(long uid, String brand, int year, String model, int miles, double basePrice) {
+        Vehicle v = new Vehicle(uid, brand, year, model, miles, basePrice);
+        vd.addVehicle(v);
+        return v;
     }
 
 
-    public boolean addPolicy(long vehicleId, long userId, double price, Policy.Type type, Policy.Duration duration, Policy.Usage usage) {
-        return false;
+    public Policy addPolicy(long vehicleId, long userId, double price, Policy.Type type, Policy.Duration duration, Policy.Usage usage) {
+        Policy p = new Policy(vehicleId, userId, price, type, duration, usage);
+        pd.addPolicy(p);
+        return p;
     }
 
     private boolean validateUserInfo(String userName, LocalDate birthday, String email, String occupation) {

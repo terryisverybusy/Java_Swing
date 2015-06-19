@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Rico on 6/16/15.
- */
 public class VehicleImpl implements VehicleDao {
     private final String FILENAME = "vehicle.txt";
     Path vehicleFile;
@@ -46,5 +45,13 @@ public class VehicleImpl implements VehicleDao {
         String vid = "v"+id;
         String s = FileOperations.loadRecordsFromFile(vehicleFile,vid).get(0);
         return new Vehicle(s);
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByUserId(long uid) {
+        List<Vehicle> lv = new ArrayList<>();
+        String str = "u"+uid;
+        FileOperations.loadRecordsFromFile(vehicleFile,str).forEach(v->lv.add(new Vehicle(v)));
+        return lv;
     }
 }

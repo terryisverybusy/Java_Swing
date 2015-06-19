@@ -1,9 +1,12 @@
 package controllers;
 
 import dao.impl.file.PolicyImpl;
+import dao.impl.file.VehicleImpl;
 import dao.interfaces.PolicyDao;
+import dao.interfaces.VehicleDao;
 import dao.model.Policy;
 import dao.model.User;
+import dao.model.Vehicle;
 
 import java.util.List;
 
@@ -13,8 +16,13 @@ import java.util.List;
 public class InfoController {
 
     PolicyDao pd = new PolicyImpl();
+    VehicleDao vd = new VehicleImpl();
 
-    public List<Policy> getPolicies(User u) {
-        return pd.getPolicyByUserId(u.getId());
+    public List<Vehicle> getVehicles(User user){
+        return vd.getVehiclesByUserId(user.getId());
+    }
+
+    public Policy getPolicy(User u, Vehicle v) {
+        return pd.getPolicyByUserId(u.getId()).stream().filter(p -> p.getVehicleId() == v.getId()).findFirst().get();
     }
 }
