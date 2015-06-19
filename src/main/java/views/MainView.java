@@ -491,8 +491,8 @@ public class MainView extends JFrame implements ActionListener {
             tabbedPane.setSelectedIndex(2);
             JOptionPane.showMessageDialog(null, "Success to submit policy");
             // example to get the value of the selected item
-            // String selected = (String) typeList.getSelectedItem();
-            // System.out.println("You seleted : " + selected);
+             String selected = (String) typeList.getSelectedItem();
+             System.out.println("You seleted : " + selected);
         }
 
         if (e.getSource() == registerSubmitButton3) {
