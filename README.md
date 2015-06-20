@@ -11,6 +11,16 @@ Come up with functional requirements and prepare a design document with story bo
 
 Also decide on the scope of the project (features to be supported)
 
+#### Running
+- Maven
+  ```bash
+  mvn package
+  java -cp target/project1-0.1.0.jar controllers.MainController
+  ```
+- IDE
+import as maven project and run `controllers.MainController`
+
+
 # Documents
 for documents modification, use links below. Every version should be submitted to docs folder.
 *For google doc files, use Suggesting Mode for sake of easy peer review.*

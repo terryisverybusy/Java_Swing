@@ -12,18 +12,18 @@ import java.nio.file.Paths;
  * Created by Rico on 6/17/15.
  */
 public class MainController {
+    private static MainController mc;
 
-    private ClaimController cc;
-    private WelcomeController wc;
-    private RegisterController rc;
-    private InfoController ic;
-    private MainView mv;
-
-    public MainController() {
-        init();
-        wc = new WelcomeController();
-        cc = new ClaimController();
+    public static MainController getInstance() {
+        return mc == null ? new MainController() : mc;
     }
+
+    private static ClaimController cc;
+    private static WelcomeController wc;
+    private static RegisterController rc;
+    private static InfoController ic;
+    private static MainView mv;
+
 
     private void init() {
         Path path = Paths.get(Utils.CONFIG_PROPS.getProperty("data-store-path"));
@@ -32,14 +32,21 @@ public class MainController {
         } catch (IOException e) {
             System.out.println("fail to create data store directory");
         }
-        mv = MainView.getInstance();
+        mv = new MainView();
         mv.setVisible(true);
+        wc = new WelcomeController();
+        cc = new ClaimController();
+        rc = new RegisterController();
+        ic = new InfoController();
     }
 
 
     public static void main(String[] args) {
-        MainController mc = new MainController();
+
+        MainController.getInstance().init();
+
     }
+
 
     public ClaimController getClaimController() {
         return cc;

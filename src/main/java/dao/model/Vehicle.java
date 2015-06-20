@@ -37,14 +37,14 @@ public class Vehicle {
         model = ss[4];
         miles = Integer.parseInt(ss[5]);
         basePrice = Double.parseDouble(ss[6]);
-        uid = Long.parseLong(ss[7]);
+        uid = Long.parseLong(ss[7].substring(1));
     }
 
     @Override
     public String toString() {
         String d = Utils.delim;
         return d + "v" + id + d + brand + d +
-                year + d + model + d + miles + d + basePrice + d + uid;
+                year + d + model + d + miles + d + basePrice + d + "u"+uid;
     }
 
 

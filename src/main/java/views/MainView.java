@@ -1,16 +1,29 @@
 package views;
+
+import controllers.MainController;
+import dao.model.Policy;
+import dao.model.User;
+import dao.model.Vehicle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MainView extends JFrame implements ActionListener {
-    private static MainView mv = null;
-    public static MainView getInstance(){
-        return  mv==null ? new MainView() : mv;
-    }
+    //    private static MainView mv;
+//
+//    public static MainView getInstance() {
+//        return mv == null ? new MainView() : mv;
+//    }
+//
+    private static MainController mc = MainController.getInstance();
+
+    private User user;
+    private java.util.List<Vehicle> vehicles;
+    private java.util.List<Policy> policies;
+
 
     // component for the main view
     public static JTabbedPane tabbedPane;
@@ -33,10 +46,10 @@ public class MainView extends JFrame implements ActionListener {
     public JPasswordField registerPasswordText;
     public JTextField registerFNameText;
     public JTextField registerLNameText;
-    public JFormattedTextField registerBirthdayText;
+    public JTextField registerBirthdayText;
     public JTextField registerOccupationText;
     public JTextField registerAddressText;
-    public JFormattedTextField registerLicenseDateText;
+    public JTextField registerLicenseDateText;
     public JTextField registerBrandText;
     public JTextField registerYearText;
     public JTextField registerModelText;
@@ -65,6 +78,8 @@ public class MainView extends JFrame implements ActionListener {
     public JLabel infoBasePriceText;
     public JLabel infoTypeText;
     public JLabel infoDurationText;
+    public JLabel infoUsageText;
+    public JLabel infoPriceText;
 
     // component for the claim report
     public JTextField claimTitleText;
@@ -72,7 +87,7 @@ public class MainView extends JFrame implements ActionListener {
     public JButton claimSignOutButton;
     public JButton claimSubmitButton;
 
-    private MainView() {
+    public MainView() {
         // NOTE: to reduce the amount of code in this example, it uses
         // panels with a NULL layout. This is NOT suitable for
         // production code since it may not display correctly for
@@ -152,9 +167,9 @@ public class MainView extends JFrame implements ActionListener {
         emailLabel.setBounds(10, 10, 80, 25);
         registerPanel.add(emailLabel);
 
-        this.registerEmailText = new JTextField(20);
-        this.registerEmailText.setBounds(100, 10, 160, 25);
-        registerPanel.add(this.registerEmailText);
+//        this.registerEmailText = new JTextField(20);
+//        this.registerEmailText.setBounds(100, 10, 160, 25);
+//        registerPanel.add(this.registerEmailText);
 
         this.registerEmailText = new JTextField(20);
         this.registerEmailText.setBounds(100, 10, 160, 25);
@@ -193,8 +208,8 @@ public class MainView extends JFrame implements ActionListener {
         birthdayLabel.setBounds(10, 100, 80, 25);
         registerPanel.add(birthdayLabel);
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        JFormattedTextField registerBirthdayText = new JFormattedTextField(df);
+//        DateTimeFormatter df = new DateTimeFormatter()
+        registerBirthdayText = new JTextField(20);
         registerBirthdayText.setBounds(100, 100, 160, 25);
         registerPanel.add(registerBirthdayText);
 
@@ -218,7 +233,7 @@ public class MainView extends JFrame implements ActionListener {
         licenseDateLabel.setBounds(10, 190, 80, 25);
         registerPanel.add(licenseDateLabel);
 
-        registerLicenseDateText = new JFormattedTextField(df);
+        registerLicenseDateText = new JTextField(20);
         registerLicenseDateText.setBounds(100, 190, 160, 25);
         registerPanel.add(registerLicenseDateText);
 
@@ -424,13 +439,29 @@ public class MainView extends JFrame implements ActionListener {
         infoDurationText.setBounds(100, 400, 160, 25);
         infoPanel.add(infoDurationText);
 
+        JLabel usageLabel = new JLabel("usage");
+        usageLabel.setBounds(10, 430, 80, 25);
+        infoPanel.add(usageLabel);
+
+        infoUsageText = new JLabel(defaultMessage);
+        infoUsageText.setBounds(100, 430, 160, 25);
+        infoPanel.add(infoUsageText);
+
+        JLabel priceLabel = new JLabel("price");
+        priceLabel.setBounds(10, 460, 80, 25);
+        infoPanel.add(priceLabel);
+
+        infoPriceText = new JLabel(defaultMessage);
+        infoPriceText.setBounds(100, 460, 160, 25);
+        infoPanel.add(infoPriceText);
+
         infoSignOutButton = new JButton("Sign Out");
         infoSignOutButton.setBounds(480, 10, 80, 25);
         infoSignOutButton.addActionListener(this);
         infoPanel.add(infoSignOutButton);
 
         infoSubmitButton = new JButton("report claim");
-        infoSubmitButton.setBounds(100, 430, 150, 25);
+        infoSubmitButton.setBounds(100, 490, 150, 25);
         infoSubmitButton.addActionListener(this);
         infoPanel.add(infoSubmitButton);
     }
@@ -473,54 +504,183 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         if (e.getSource() == welcomeLoginButton) {
-            JOptionPane.showMessageDialog(null, "Success to Login");
-            tabbedPane.setSelectedIndex(2);
+            String userName = welcomeUserField.getText();
+            String password = new String(welcomePasswordField.getPassword());
+            if (mc.getWelcomeController().validate(userName, password)) {
+                JOptionPane.showMessageDialog(null, "Success to Login");
+                user = mc.getWelcomeController().getUser(userName);
+                vehicles = mc.getWelcomeController().getVehicles(user.getId());
+                policies = mc.getWelcomeController().getPolicies(user.getId());
+                refreshInfo();
+
+
+
+                tabbedPane.setSelectedIndex(2);
+            } else {
+                JOptionPane.showConfirmDialog(null, "wrong username or password");
+            }
         }
         if (e.getSource() == welcomeRegisterButton) {
-            JOptionPane.showMessageDialog(null, "Go to register page");
+            vehicles = new ArrayList<>();
+            policies = new ArrayList<>();
             tabbedPane.setSelectedIndex(1);
-            // Example to get the value from the textField
-            String temp = welcomeUserField.getText();
-            System.out.println(temp);
         }
         if (e.getSource() == registerSignOutButton) {
             JOptionPane.showMessageDialog(null, "Sign out from this account");
+            signout();
+            clearView();
             tabbedPane.setSelectedIndex(0);
         }
         if (e.getSource() == registerSubmitButton) {
+            String type = (String) typeList.getSelectedItem();
+            String duration = (String) durationList.getSelectedItem();
+            String usage = (String) usageList.getSelectedItem();
+            Policy p = mc.getRegisterController().addPolicy(vehicles.get(0), user, type, duration, usage);
+            policies.add(p);
             tabbedPane.setSelectedIndex(2);
-            JOptionPane.showMessageDialog(null, "Success to submit policy");
-            // example to get the value of the selected item
-            // String selected = (String) typeList.getSelectedItem();
-            // System.out.println("You seleted : " + selected);
+            refreshInfo();
+            if (p == null)
+                JOptionPane.showMessageDialog(null, "fail to create policy");
+            else
+                JOptionPane.showMessageDialog(null, "Success to submit policy");
         }
 
         if (e.getSource() == registerSubmitButton3) {
-            JOptionPane.showMessageDialog(null,
-                    "Success to submit user profile");
+            String username = registerUserText.getText();
+            String password = new String(registerPasswordText.getPassword());
+            String email = registerEmailText.getText();
+            String firstName = registerFNameText.getText();
+            String lastName = registerLNameText.getText();
+            String birthday = registerBirthdayText.getText();
+            String occupation = registerOccupationText.getText();
+            String address = registerAddressText.getText();
+            String license = registerLicenseDateText.getText();
+            user = mc.getRegisterController().addUser(username, password, email, firstName, lastName,
+                    birthday, occupation, address, license);
+            if (user == null)
+                JOptionPane.showMessageDialog(null, "some fields went wrong");
+            else
+                JOptionPane.showMessageDialog(null, "Success to submit user profile");
         }
 
         if (e.getSource() == registerSubmitButton2) {
-            JOptionPane
-                    .showMessageDialog(null, "Success to submit car profile");
+            String brand = registerBrandText.getText();
+            String year = registerYearText.getText();
+            String model = registerModelText.getText();
+            String miles = registerMilesText.getText();
+            String basePrice = registerBasePriceText.getText();
+            Vehicle v = mc.getRegisterController().addVehicle(user.getId(), brand, year, model, miles, basePrice);
+            vehicles.add(v);
+            if (v == null)
+                JOptionPane.showMessageDialog(null, "some fields went wrong");
+            else
+                JOptionPane.showMessageDialog(null, "Success to submit car profile");
         }
 
         if (e.getSource() == infoSignOutButton) {
+            signout();
+            clearView();
             JOptionPane.showMessageDialog(null, "Sign out from this account");
             tabbedPane.setSelectedIndex(0);
         }
         if (e.getSource() == infoSubmitButton) {
-            JOptionPane.showMessageDialog(null, "report claim");
             tabbedPane.setSelectedIndex(3);
         }
         if (e.getSource() == claimSignOutButton) {
+            signout();
+            clearView();
             JOptionPane.showMessageDialog(null, "Sign out from this account");
             tabbedPane.setSelectedIndex(0);
         }
         if (e.getSource() == claimSubmitButton) {
-            JOptionPane.showMessageDialog(null, "Commit success");
+            String title = claimTitleText.getText();
+            String content = claimContentText.getText();
+            boolean result = mc.getClaimController().addClaim(user.getId(), title, content);
+            if (result)
+                JOptionPane.showMessageDialog(null, "report success, one of our customer service will contact you soon.");
+            else
+                JOptionPane.showMessageDialog(null, "report fail");
             tabbedPane.setSelectedIndex(2);
         }
 
+    }
+
+    private void signout() {
+        user = null;
+        vehicles = null;
+        policies = null;
+    }
+
+    private void clearView() {
+        clearClaimView();
+        clearInfoView();
+        clearRegisterView();
+        clearWelcomeView();
+    }
+
+    private void clearWelcomeView() {
+        welcomeUserField.setText("");
+        welcomePasswordField.setText("");
+    }
+
+    private void clearRegisterView() {
+        registerEmailText.setText("");
+        registerUserText.setText("");
+        registerPasswordText.setText("");
+        registerFNameText.setText("");
+        registerLNameText.setText("");
+        registerBirthdayText.setText("");
+        registerOccupationText.setText("");
+        registerAddressText.setText("");
+        registerLicenseDateText.setText("");
+
+        registerBrandText.setText("");
+        registerYearText.setText("");
+        registerModelText.setText("");
+        registerMilesText.setText("");
+        registerBasePriceText.setText("");
+    }
+
+    private void clearInfoView() {
+        infoEmailText.setText("");
+        infoFNameText.setText("");
+        infoLNameText.setText("");
+        infoBirthdayText.setText("");
+        infoOccupationText.setText("");
+        infoAddressText.setText("");
+        infoLicenseDateText.setText("");
+        infoBrandText.setText("");
+        infoYearText.setText("");
+        infoModelText.setText("");
+        infoMilesText.setText("");
+        infoBasePriceText.setText("");
+        infoTypeText.setText("");
+        infoDurationText.setText("");
+        infoUsageText.setText("");
+        infoPriceText.setText("");
+    }
+
+    private void clearClaimView() {
+        claimContentText.setText("");
+        claimTitleText.setText("");
+    }
+
+    private void refreshInfo(){
+        infoEmailText.setText(user.getEmail());
+        infoFNameText.setText(user.getFirstName());
+        infoLNameText.setText(user.getLastName());
+        infoBirthdayText.setText(user.getBirthday().toString());
+        infoOccupationText.setText(user.getOccupation());
+        infoAddressText.setText(user.getAddress());
+        infoLicenseDateText.setText(user.getLicenseDate().toString());
+        infoBrandText.setText(vehicles.get(0).getBrand());
+        infoYearText.setText(String.valueOf(vehicles.get(0).getYear()));
+        infoModelText.setText(vehicles.get(0).getModel());
+        infoMilesText.setText(String.valueOf(vehicles.get(0).getMiles()));
+        infoBasePriceText.setText(String.valueOf(vehicles.get(0).getBasePrice()));
+        infoTypeText.setText(policies.get(0).getType().toString());
+        infoDurationText.setText(policies.get(0).getDuration().toString());
+        infoUsageText.setText(policies.get(0).getUsage().toString());
+        infoPriceText.setText(String.valueOf(policies.get(0).getPrice()));
     }
 }

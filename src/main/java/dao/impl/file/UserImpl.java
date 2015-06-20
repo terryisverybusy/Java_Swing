@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class UserImpl implements UserDao{
     private final String FILENAME  = "user.txt";
@@ -19,6 +20,7 @@ public class UserImpl implements UserDao{
             if(!Files.exists(userFile)) Files.createFile(userFile);
         }catch (IOException e){
             e.printStackTrace();
+            System.out.println(userFile.toAbsolutePath().toString());
         }
     }
     @Override
@@ -39,9 +41,12 @@ public class UserImpl implements UserDao{
 
     @Override
     public User getUserByUserName(String userName) {
-        String s = FileOperations.loadRecordsFromFile(userFile,userName).get(0);
-        return new User(s);
-
+        List<String> ls = FileOperations.loadRecordsFromFile(userFile,userName);
+        if(ls.size() == 0) return null;
+        else {
+            String s = ls.get(0);
+            return new User(s);
+        }
     }
 
     @Override
