@@ -13,12 +13,13 @@ Also decide on the scope of the project (features to be supported)
 
 #### Running
 - Maven
-  ```bash
-  mvn package
-  java -cp target/project1-0.1.0.jar controllers.MainController
-  ```
+```bash
+mvn package
+java -cp target/project1-0.1.0.jar controllers.MainController
+```
 - IDE
-import as maven project and run `controllers.MainController`
+1. import as maven project 
+2. run `controllers.MainController`
 
 
 # Documents
@@ -26,7 +27,7 @@ for documents modification, use links below. Every version should be submitted t
 *For google doc files, use Suggesting Mode for sake of easy peer review.*
 * [Requirements Analysis](http://bit.ly/1GEDB3u)
 * [UML-Class Diagram](http://bit.ly/1GEDtAZ)
-* [Basic View](https://docs.google.com/drawings/d/1t6M2W9OtWmffbB5HTQW5kkkfKyV01F8mtJgSlCVgA3g/edit?usp=sharing)
+* [Basic View](http://bit.ly/1H5OlrO)
 
 # References
 * [How is car insurance calculated?](http://bit.ly/1GCLynH)
