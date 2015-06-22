@@ -25,7 +25,7 @@ public class WelcomeController {
     public boolean validate(String userName, String password) {
         boolean result = false;
         User u = ud.getUserByUserName(userName);
-        if (u==null) return result;
+        if (u==null || userName.equals("")) return result;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             u.getPassword().getBytes().equals(md.digest(password.getBytes()));

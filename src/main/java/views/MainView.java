@@ -512,9 +512,6 @@ public class MainView extends JFrame implements ActionListener {
                 vehicles = mc.getWelcomeController().getVehicles(user.getId());
                 policies = mc.getWelcomeController().getPolicies(user.getId());
                 refreshInfo();
-
-
-
                 tabbedPane.setSelectedIndex(2);
             } else {
                 JOptionPane.showConfirmDialog(null, "wrong username or password");
