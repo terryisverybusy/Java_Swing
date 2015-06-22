@@ -116,6 +116,8 @@ public class MainView extends JFrame implements ActionListener {
         // add to the topPanel
         topPanel.add(tabbedPane, BorderLayout.CENTER);
 
+        focusOnTab(0);
+
     }
 
     // create the welcome page
@@ -512,7 +514,8 @@ public class MainView extends JFrame implements ActionListener {
                 vehicles = mc.getWelcomeController().getVehicles(user.getId());
                 policies = mc.getWelcomeController().getPolicies(user.getId());
                 refreshInfo();
-                tabbedPane.setSelectedIndex(2);
+//                tabbedPane.setSelectedIndex(2);
+                focusOnTab(2);
             } else {
                 JOptionPane.showConfirmDialog(null, "wrong username or password");
             }
@@ -520,13 +523,15 @@ public class MainView extends JFrame implements ActionListener {
         if (e.getSource() == welcomeRegisterButton) {
             vehicles = new ArrayList<>();
             policies = new ArrayList<>();
-            tabbedPane.setSelectedIndex(1);
+//            tabbedPane.setSelectedIndex(1);
+            focusOnTab(1);
         }
         if (e.getSource() == registerSignOutButton) {
             JOptionPane.showMessageDialog(null, "Sign out from this account");
             signout();
             clearView();
-            tabbedPane.setSelectedIndex(0);
+//            tabbedPane.setSelectedIndex(0);
+            focusOnTab(0);
         }
         if (e.getSource() == registerSubmitButton) {
             String type = (String) typeList.getSelectedItem();
@@ -534,7 +539,8 @@ public class MainView extends JFrame implements ActionListener {
             String usage = (String) usageList.getSelectedItem();
             Policy p = mc.getRegisterController().addPolicy(vehicles.get(0), user, type, duration, usage);
             policies.add(p);
-            tabbedPane.setSelectedIndex(2);
+//            tabbedPane.setSelectedIndex(2);
+            focusOnTab(2);
             refreshInfo();
             if (p == null)
                 JOptionPane.showMessageDialog(null, "fail to create policy");
@@ -578,16 +584,19 @@ public class MainView extends JFrame implements ActionListener {
             signout();
             clearView();
             JOptionPane.showMessageDialog(null, "Sign out from this account");
-            tabbedPane.setSelectedIndex(0);
+//            tabbedPane.setSelectedIndex(0);
+            focusOnTab(0);
         }
         if (e.getSource() == infoSubmitButton) {
-            tabbedPane.setSelectedIndex(3);
+//            tabbedPane.setSelectedIndex(3);
+            focusOnTab(3);
         }
         if (e.getSource() == claimSignOutButton) {
             signout();
             clearView();
             JOptionPane.showMessageDialog(null, "Sign out from this account");
-            tabbedPane.setSelectedIndex(0);
+//            tabbedPane.setSelectedIndex(0);
+            focusOnTab(0);
         }
         if (e.getSource() == claimSubmitButton) {
             String title = claimTitleText.getText();
@@ -597,7 +606,8 @@ public class MainView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "report success, one of our customer service will contact you soon.");
             else
                 JOptionPane.showMessageDialog(null, "report fail");
-            tabbedPane.setSelectedIndex(2);
+//            tabbedPane.setSelectedIndex(2);
+            focusOnTab(2);
         }
 
     }
@@ -662,7 +672,7 @@ public class MainView extends JFrame implements ActionListener {
         claimTitleText.setText("");
     }
 
-    private void refreshInfo(){
+    private void refreshInfo() {
         infoEmailText.setText(user.getEmail());
         infoFNameText.setText(user.getFirstName());
         infoLNameText.setText(user.getLastName());
@@ -679,5 +689,13 @@ public class MainView extends JFrame implements ActionListener {
         infoDurationText.setText(policies.get(0).getDuration().toString());
         infoUsageText.setText(policies.get(0).getUsage().toString());
         infoPriceText.setText(String.valueOf(policies.get(0).getPrice()));
+    }
+
+    private void focusOnTab(int j) {
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+            tabbedPane.setEnabledAt(i, i == j ? true : false);
+            tabbedPane.setBackgroundAt(i, i == j ? Color.black : new Color(168, 168, 168));
+        }
+        tabbedPane.setSelectedIndex(j);
     }
 }
